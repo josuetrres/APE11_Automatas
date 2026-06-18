@@ -66,7 +66,7 @@ mvn exec:java
 
 ### Implementación en Python (PLY)
 Ubicación: Carpeta `Python/`
-Para Python se utilizó **PLY**, que es la adaptación directa de Lex y Yacc. Para mantener el principio de código limpio y modular, el sistema se dividió en tres archivos:
+Para Python se utilizó **PLY**, que es la adaptación directa de Lex y Yacc. El sistema se dividió en tres archivos:
 * **`lexer_rules.py`**: Contiene las expresiones regulares (mediante convenciones de prefijos `t_`) y genera el lexer.
 * **`parser_rules.py`**: Importa los tokens e implementa la gramática mediante funciones de Python y *docstrings*.
 * **`main.py`**: El punto de entrada principal que inicializa ambos módulos y mide el tiempo de ejecución.
