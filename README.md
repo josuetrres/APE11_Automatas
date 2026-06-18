@@ -25,9 +25,9 @@ Los espacios y tabulaciones son ignorados por el lexer.
 ---
 
 ## 3. Análisis Sintáctico (Gramática)
-El analizador sintáctico recibe los tokens y comprueba que estén en un orden válido utilizando una gramática libre de contexto LALR(1).
+El analizador sintáctico recibe los tokens y comprueba que estén en un orden válido utilizando una gramática libre de contexto.
 
-### Reglas Gramaticales (BNF)
+### Reglas Gramaticales 
 El lenguaje se define formalmente de la siguiente manera:
 
 1. **sistema** $\rightarrow$ **lista_ecuaciones**
