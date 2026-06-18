@@ -1,0 +1,32 @@
+# Entornos virtuales
+Python/venv/
+Python/env/
+Python/.venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Maven / Java
+Java/target/
+*.jar
+*.class
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Archivos generados de JFlex / Java CUP (opcional, aunque es común excluirlos y generarlos en build)
+Java/target/generated-sources/
+
+# Archivos generados de PLY
+Python/parser.out
+Python/parsetab.py
+
+# Archivos del sistema y editores
+.DS_Store
+.idea/
+.vscode/
+*.swp

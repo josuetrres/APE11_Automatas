@@ -1,0 +1,118 @@
+package com.automatas;
+import java_cup.runtime.*;
+
+parser code {:
+    /* Reporte de error sintáctico */
+    public void syntax_error(Symbol s) {
+        String lexema = s.value != null ? s.value.toString() : sym.terminalNames[s.sym];
+        if (s.sym == sym.EOF) {
+            System.err.println("Error Sintáctico: La última ecuación está incompleta (se alcanzó el final del archivo).");
+        } else {
+            System.err.println("Error Sintáctico en la Línea " + (s.left + 1) +
+                               " Columna " + (s.right + 1) + ". Componente no esperado: '" + lexema + "'");
+        }
+    }
+
+    /* Error fatal que detiene el análisis */
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception {
+        // Silenciado para no ensuciar la consola
+    }
+:};
+
+/*---------------------------------------------------------
+ * TERMINALES (tokens que llegan desde JFlex)
+ *---------------------------------------------------------*/
+
+terminal String ID;
+terminal Integer NUM;
+
+terminal SUMA;
+terminal RESTA;
+terminal MULT;
+terminal DIV;
+terminal IGUAL;
+
+terminal EOL;
+
+/*---------------------------------------------------------
+ * NO TERMINALES
+ *---------------------------------------------------------*/
+
+non terminal sistema;
+non terminal lista_ecuaciones;
+non terminal ecuacion;
+non terminal expresion;
+
+/*---------------------------------------------------------
+ * PRECEDENCIA DE OPERADORES
+ *---------------------------------------------------------*/
+
+precedence left SUMA, RESTA;
+precedence left MULT, DIV;
+
+/*---------------------------------------------------------
+ * SÍMBOLO INICIAL
+ *---------------------------------------------------------*/
+
+start with sistema;
+
+/*---------------------------------------------------------
+ * Un sistema contiene una o más ecuaciones
+ *---------------------------------------------------------*/
+
+sistema ::=
+      lista_ecuaciones
+    ;
+
+/*---------------------------------------------------------
+ * Lista de ecuaciones separadas por salto de línea
+ *---------------------------------------------------------*/
+
+lista_ecuaciones ::=
+      ecuacion
+    | lista_ecuaciones EOL ecuacion
+    ;
+
+/*---------------------------------------------------------
+ * ECUACIÓN
+ *
+ * Ejemplos:
+ * x+y=30
+ * a*b=c
+ * x+y*z=100
+ *---------------------------------------------------------*/
+
+ecuacion ::=
+      expresion IGUAL expresion
+      {:
+          System.out.println(
+              "✓ Ecuación válida"
+          );
+      :}
+    | error
+    ;
+
+/*---------------------------------------------------------
+ * EXPRESIONES ALGEBRAICAS
+ *---------------------------------------------------------*/
+
+expresion ::=
+
+      /* Identificador */
+      ID
+
+    /* Número */
+    | NUM
+
+    /* Suma */
+    | expresion SUMA expresion
+
+    /* Resta */
+    | expresion RESTA expresion
+
+    /* Multiplicación */
+    | expresion MULT expresion
+
+    /* División */
+    | expresion DIV expresion
+    ;
